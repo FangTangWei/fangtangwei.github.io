@@ -983,7 +983,7 @@ samp {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 1003;
   /* Hux learn from
      *     TypeIsBeautiful,
      *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
