@@ -1471,6 +1471,7 @@ body.dark-mode .theme-toggle .toggle-thumb {
     position: fixed !important;
     top: 0;
     z-index: 9999;
+    transition: background-color 0.3s ease;
   }
 
   .navbar-custom.is-fixed {

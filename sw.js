@@ -11,7 +11,7 @@
 // A namespace can prevent potential name conflicts and mis-deletion.
 const CACHE_NAMESPACE = 'main-'
 
-const CACHE = CACHE_NAMESPACE + 'precache-then-runtime-v4';
+const CACHE = CACHE_NAMESPACE + 'precache-then-runtime-v5';
 const PRECACHE_LIST = [
   "./",
   "./offline.html",
@@ -39,7 +39,8 @@ const DEPRECATED_CACHES = [
   'precache-v1', 'runtime', 'main-precache-v1', 'main-runtime',
   'main-precache-then-runtime', 'main-static-v1',
   'main-precache-then-runtime-v2', 'main-static-v2',
-  'main-precache-then-runtime-v3', 'main-static-v3'
+  'main-precache-then-runtime-v3', 'main-static-v3',
+  'main-precache-then-runtime-v4'
 ]
 
 
