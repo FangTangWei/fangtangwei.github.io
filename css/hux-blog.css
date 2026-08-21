@@ -1969,7 +1969,7 @@ body.dark-mode pre.highlight {
   position: fixed;
   bottom: 28px;
   right: 28px;
-  z-index: 1001;
+  z-index: 9998;
 }
 
 .theme-toggle {
