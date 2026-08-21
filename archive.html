@@ -1,0 +1,350 @@
+---
+title: Archive
+layout: default
+description: "「我干了什么 究竟拿了时间换了什么」"
+header-img: "img/bg-little-universe.jpg"
+---
+
+<!--
+Credits: this page shamelessly borrowed a lot from:
+https://github.com/kitian616/jekyll-TeXt-theme
+-->
+<!-- Page Header -->
+{% include intro-header.html type='page' short=true %}
+
+<!-- Tag Filter Bar -->
+<div class="archive-tag-bar" id="archive-tag-bar">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+        <div class="archive-tags" id="archive-tags">
+          <a class="tag-filter-btn active" data-tag="" data-count="0" href="javascript:void(0)">全部</a>
+          {%- for tag in site.tags -%}
+          <a class="tag-filter-btn" data-tag="{{ tag[0] }}" data-count="{{ tag[1].size }}" href="javascript:void(0)">{{ tag[0] }}<span class="tag-count">({{ tag[1].size }})</span></a>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+			<!-- Timeline View -->
+			<div class="archive-timeline" id="archive-timeline">
+				{%- assign _timeline_list = site.posts | sort: 'date' | reverse -%}
+				{%- assign _tl_date = '' -%}
+				{%- for _article in _timeline_list -%}
+				{%- assign _currentdate = _article.date | date: '%Y' -%}
+				{%- if _currentdate != _tl_date -%}
+				<div class="archive-year">{{ _currentdate }}</div>
+				{%- assign _tl_date = _currentdate -%}
+				{%- endif -%}
+				<div class="archive-item" data-tags="{% for tag in _article.tags %}{{ tag }}{% unless forloop.last %},{% endunless %}{% endfor %}" data-date="{{ _article.date | date: '%Y-%m-%d' }}">
+					<a href="{{ _article.url | prepend: site.baseurl }}">
+						<span class="archive-date">{{ _article.date | date: '%m-%d' }}</span>
+						<div class="archive-content">
+							<span class="archive-title">{{ _article.title }}</span>
+							{% if _article.subtitle %}
+							<span class="archive-subtitle">{{ _article.subtitle }}</span>
+							{% endif %}
+							<div class="archive-item-tags">
+								{% for tag in _article.tags %}
+								<span class="archive-mini-tag">{{ tag }}</span>
+								{% endfor %}
+							</div>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+			<!-- Empty state -->
+			<div class="archive-empty" id="archive-empty" style="display:none;">
+				<p>没有找到对应标签的文章</p>
+				<a class="tag-filter-btn" data-tag="" href="javascript:void(0)">查看全部</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Archive Tag Filter + Year Folding + Same-day Folding Script -->
+<script>
+(function() {
+  function init() {
+    var timeline = document.getElementById('archive-timeline');
+    if (!timeline) return;
+
+    var tagBar = document.getElementById('archive-tags');
+    var tagBtns = tagBar ? Array.prototype.slice.call(tagBar.querySelectorAll('.tag-filter-btn')) : [];
+
+    // Sort tag buttons by count descending, "全部" stays first
+    if (tagBar) {
+      var allBtn = tagBar.querySelector('[data-tag=""]');
+      var otherBtns = tagBtns.filter(function(b) { return b.getAttribute('data-tag') !== ''; });
+      otherBtns.sort(function(a, b) {
+        return parseInt(b.getAttribute('data-count') || '0', 10) - parseInt(a.getAttribute('data-count') || '0', 10);
+      });
+      if (allBtn) tagBar.appendChild(allBtn);
+      otherBtns.forEach(function(b) { tagBar.appendChild(b); });
+    }
+
+    var emptyState = document.getElementById('archive-empty');
+    var emptyBtn = emptyState ? emptyState.querySelector('.tag-filter-btn') : null;
+
+    // Parse timeline: collect year headers and items
+    var children = Array.prototype.slice.call(timeline.children);
+    var allItems = [];
+    var yearGroups = [];
+    var currentYearGroup = null;
+
+    children.forEach(function(child) {
+      if (child.classList.contains('archive-year')) {
+        currentYearGroup = { yearText: child.textContent.trim(), items: [] };
+        yearGroups.push(currentYearGroup);
+      } else if (child.classList.contains('archive-item') && currentYearGroup) {
+        currentYearGroup.items.push(child);
+        allItems.push(child);
+      }
+    });
+
+    // Rebuild timeline with year-level folding
+    timeline.innerHTML = '';
+
+    yearGroups.forEach(function(yg) {
+      var yearWrapper = document.createElement('div');
+      yearWrapper.className = 'archive-year-group';
+
+      var yearHeader = document.createElement('div');
+      yearHeader.className = 'archive-year-header';
+      yearHeader.innerHTML = '<span class="archive-year-text">' + yg.yearText + '</span>' +
+                             '<span class="archive-year-count">' + yg.items.length + ' 篇文章</span>' +
+                             '<span class="archive-year-toggle">▾</span>';
+      yearWrapper.appendChild(yearHeader);
+
+      var yearContent = document.createElement('div');
+      yearContent.className = 'archive-year-content';
+
+      // Append items directly (year-level folding only)
+      yg.items.forEach(function(item) {
+        yearContent.appendChild(item);
+      });
+
+      yearWrapper.appendChild(yearContent);
+      timeline.appendChild(yearWrapper);
+
+      yearHeader.addEventListener('click', function() {
+        yearContent.classList.toggle('collapsed');
+        var toggle = yearHeader.querySelector('.archive-year-toggle');
+        toggle.textContent = yearContent.classList.contains('collapsed') ? '▸' : '▾';
+      });
+    });
+
+    // --- Tag filtering ---
+    function getActiveTag() {
+      var params = new URLSearchParams(window.location.search);
+      return params.get('tag') || '';
+    }
+
+    function setUrlQuery(tag) {
+      var baseUrl = window.location.href.split('?')[0];
+      if (tag) {
+        window.history.replaceState(null, '', baseUrl + '?tag=' + encodeURIComponent(tag));
+      } else {
+        window.history.replaceState(null, '', baseUrl);
+      }
+    }
+
+    function filterByTag(tag) {
+      var visibleCount = 0;
+
+      allItems.forEach(function(item) {
+        var itemTags = (item.getAttribute('data-tags') || '').split(',');
+        var match = !tag || itemTags.indexOf(tag) > -1;
+        item.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+
+      // Show/hide year groups and expand when filtering
+      var yearGroupEls = timeline.querySelectorAll('.archive-year-group');
+      yearGroupEls.forEach(function(yg) {
+        var items = yg.querySelectorAll('.archive-item');
+        var hasVisible = false;
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].style.display !== 'none') { hasVisible = true; break; }
+        }
+        yg.style.display = hasVisible ? '' : 'none';
+
+        if (tag && hasVisible) {
+          var yc = yg.querySelector('.archive-year-content');
+          if (yc) yc.classList.remove('collapsed');
+          var yt = yg.querySelector('.archive-year-toggle');
+          if (yt) yt.textContent = '▾';
+        }
+      });
+
+      if (emptyState) {
+        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        timeline.style.display = visibleCount === 0 ? 'none' : '';
+      }
+
+      tagBtns.forEach(function(btn) {
+        var btnTag = btn.getAttribute('data-tag') || '';
+        if (btnTag === tag) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+    }
+
+    tagBtns.forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var tag = btn.getAttribute('data-tag') || '';
+        setUrlQuery(tag);
+        filterByTag(tag);
+      });
+    });
+
+    if (emptyBtn) {
+      emptyBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        setUrlQuery('');
+        filterByTag('');
+      });
+    }
+
+    var initialTag = getActiveTag();
+    if (initialTag) filterByTag(initialTag);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<!-- ========== 精准替换描述为 API 名言 + 打字机效果 ========== -->
+<script>
+  (function() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', replaceDescription);
+    } else {
+      replaceDescription();
+    }
+
+    function replaceDescription() {
+      var ORIGINAL = '「我干了什么 究竟拿了时间换了什么」';
+      var target = null;
+
+      var classes = ['.subheading', '.page-subtitle', '.description', '.header-description', '.post-subtitle'];
+      for (var i = 0; i < classes.length; i++) {
+        var els = document.querySelectorAll(classes[i]);
+        for (var j = 0; j < els.length; j++) {
+          if (els[j].textContent.trim() === ORIGINAL) {
+            target = els[j];
+            break;
+          }
+        }
+        if (target) break;
+      }
+
+      if (!target) {
+        var walker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function(node) {
+              if (node.textContent.trim() === ORIGINAL) {
+                return NodeFilter.FILTER_ACCEPT;
+              }
+              return NodeFilter.FILTER_REJECT;
+            }
+          }
+        );
+        var textNode = walker.nextNode();
+        if (textNode) {
+          var span = document.createElement('span');
+          span.textContent = ORIGINAL;
+          textNode.parentNode.replaceChild(span, textNode);
+          target = span;
+        }
+      }
+
+      if (!target) {
+        var header = document.querySelector('.intro-header') || document.querySelector('header');
+        if (header) {
+          var p = document.createElement('p');
+          p.textContent = ORIGINAL;
+          p.className = 'subheading';
+          header.parentNode.insertBefore(p, header.nextSibling);
+          target = p;
+        } else {
+          var p = document.createElement('p');
+          p.textContent = ORIGINAL;
+          document.body.appendChild(p);
+          target = p;
+        }
+      }
+
+      target.textContent = '「加载中...」';
+
+      fetch('https://uapis.cn/api/v1/saying')
+        .then(function(res) {
+          if (!res.ok) throw new Error('API 响应异常');
+          return res.json();
+        })
+        .then(function(data) {
+          var saying = data.text || '今日无名言，愿你开心。';
+          typeWriter(target, '「' + saying + '」');
+        })
+        .catch(function(err) {
+          console.warn('获取名言失败，使用备用:', err);
+          typeWriter(target, '「生活不是等待风暴过去，而是学会在雨中跳舞。」');
+        });
+    }
+
+    // 打字机效果
+    function typeWriter(element, text, speed) {
+      speed = speed || 150; // 每个字的间隔(ms)
+      element.textContent = '';
+      var index = 0;
+      var length = text.length;
+      var cursor = document.createElement('span');
+      cursor.textContent = '_';
+      cursor.style.opacity = '1';
+      cursor.style.animation = 'typingCursorBlink 1s step-end infinite';
+      cursor.style.marginLeft = '2px';
+
+      function addCursor() {
+        element.appendChild(cursor);
+      }
+
+      function type() {
+        if (index < length) {
+          element.textContent = text.slice(0, index + 1);
+          index++;
+          addCursor();
+          setTimeout(type, speed);
+        } else {
+          // 打完了，光标再闪几下然后消失
+          setTimeout(function() {
+            cursor.style.display = 'none';
+          }, 2000);
+        }
+      }
+
+      // 添加光标闪烁动画
+      if (!document.getElementById('typing-cursor-style')) {
+        var style = document.createElement('style');
+        style.id = 'typing-cursor-style';
+        style.textContent = '@keyframes typingCursorBlink { 50% { opacity: 0; } }';
+        document.head.appendChild(style);
+      }
+
+      type();
+    }
+  })();
+</script>
+<!-- ============================================================= -->

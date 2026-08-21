@@ -1,0 +1,156 @@
+---
+layout: page
+title: "About"
+description: "一去不复返，一生仅此一次的真正告别。"
+header-img: "img/home-bg-art.jpg"
+header-mask: 0.3
+multilingual: true
+---
+
+{% include multilingual-sel.html %}
+
+<!-- Chinese Version -->
+<div class="zh post-container">
+    {% capture about_zh %}{% include about/zh.md %}{% endcapture %}
+    {{ about_zh | markdownify }}
+</div>
+
+<!-- English Version -->
+<div class="en post-container">
+    {% capture about_en %}{% include about/en.md %}{% endcapture %}
+    {{ about_en | markdownify }}
+</div>
+
+
+{% if site.disqus_username %}
+<!-- disqus 评论框 start -->
+<div class="comment">
+    <div id="disqus_thread" class="disqus-thread">
+
+    </div>
+</div>
+<!-- disqus 评论框 end -->
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "{{site.disqus_username}}";
+    var disqus_identifier = "{{site.disqus_username}}/{{page.url}}";
+    var disqus_url = "{{site.url}}{{page.url}}";
+
+    (function () {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+{% endif %}
+
+<!-- ========== 替换描述为 API 名言 + 打字机效果 ========== -->
+<script>
+  (function() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', replaceDescription);
+    } else {
+      replaceDescription();
+    }
+
+    function replaceDescription() {
+      var ORIGINAL = '一去不复返，一生仅此一次的真正告别。';
+      var target = null;
+
+      var classes = ['.subheading', '.page-subtitle', '.description', '.header-description', '.post-subtitle'];
+      for (var i = 0; i < classes.length; i++) {
+        var els = document.querySelectorAll(classes[i]);
+        for (var j = 0; j < els.length; j++) {
+          if (els[j].textContent.trim() === ORIGINAL) {
+            target = els[j];
+            break;
+          }
+        }
+        if (target) break;
+      }
+
+      if (!target) {
+        var walker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function(node) {
+              if (node.textContent.trim() === ORIGINAL) {
+                return NodeFilter.FILTER_ACCEPT;
+              }
+              return NodeFilter.FILTER_REJECT;
+            }
+          }
+        );
+        var textNode = walker.nextNode();
+        if (textNode) {
+          var span = document.createElement('span');
+          span.textContent = ORIGINAL;
+          textNode.parentNode.replaceChild(span, textNode);
+          target = span;
+        }
+      }
+
+      if (!target) return;
+
+      target.textContent = '加载中...';
+
+      fetch('https://uapis.cn/api/v1/saying')
+        .then(function(res) {
+          if (!res.ok) throw new Error('API 响应异常');
+          return res.json();
+        })
+        .then(function(data) {
+          var saying = data.text || '今日无名言，愿你一切安好。';
+          typeWriter(target, saying);
+        })
+        .catch(function(err) {
+          console.warn('获取名言失败，使用备用:', err);
+          typeWriter(target, '生活不是等待风暴过去，而是学会在雨中跳舞。');
+        });
+    }
+
+    // 打字机效果
+    function typeWriter(element, text, speed) {
+      speed = speed || 150; // 每个字的间隔(ms)
+      element.textContent = '';
+      var index = 0;
+      var length = text.length;
+      var cursor = document.createElement('span');
+      cursor.textContent = '_';
+      cursor.style.opacity = '1';
+      cursor.style.animation = 'typingCursorBlink 1s step-end infinite';
+      cursor.style.marginLeft = '2px';
+
+      function addCursor() {
+        element.appendChild(cursor);
+      }
+
+      function type() {
+        if (index < length) {
+          element.textContent = text.slice(0, index + 1);
+          index++;
+          addCursor();
+          setTimeout(type, speed);
+        } else {
+          setTimeout(function() {
+            cursor.style.display = 'none';
+          }, 2000);
+        }
+      }
+
+      if (!document.getElementById('typing-cursor-style')) {
+        var style = document.createElement('style');
+        style.id = 'typing-cursor-style';
+        style.textContent = '@keyframes typingCursorBlink { 50% { opacity: 0; } }';
+        document.head.appendChild(style);
+      }
+
+      type();
+    }
+  })();
+</script>
+<!-- ============================================================= -->

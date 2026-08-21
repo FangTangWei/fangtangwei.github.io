@@ -1,0 +1,86 @@
+# Site settings
+title: FangTangWei Blog
+SEOTitle: 方糖味的博客 | FangTangWei Blog
+header-img: img/home-bg.jpg
+email: chseteishappy@gmail.com  # 请替换为你自己的邮箱
+description: "这里是 @FangTangWei 的高中生博客，记录学习、生活与成长 | 保持好奇，持续进步"
+keyword: "方糖味, FangTangWei, 高中生博客, 个人博客, 学习笔记, 编程, Web, 前端, 生活记录"
+url: "https://fangtangwei.github.io"  # 请替换为你的博客实际域名
+baseurl: "" # 如果博客放在子目录下，如 '/blog'，请修改
+
+# Publish posts or collection documents with a future date.
+future: true
+
+# SNS settings（没有账号可留空或删除对应行）
+RSS: true
+github_username: fangtangwei  # 替换为你的GitHub用户名
+twitter_username: fangtangwei # 替换为你的Twitter用户名
+email: chseteishappy@gmail.com
+#bilibili_uid: 3546943491934344
+#facebook_username:  fangtangwei
+#linkedin_username:  your-linkedin
+
+# Build settings
+highlighter: rouge
+permalink: pretty
+paginate: 10
+exclude:
+  [
+    "less",
+    "node_modules",
+    "Gruntfile.js",
+    "package.json",
+    "README.md",
+    "README.zh.md",
+  ]
+anchorjs: true
+#timezone: CN
+
+# Gems
+plugins: [jekyll-paginate]
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+# Disqus settings（若使用Disqus请替换）
+disqus_username: https-fangtangwei-github-io
+
+# Netease settings
+netease_comment: false
+
+# Analytics settings（可填入自己的跟踪ID，否则留空）
+# Baidu Analytics
+# ba_track_id: your-baidu-id
+# Google Analytics
+ga_track_id: ""  # 如有，替换为 UA-xxxxxx-xx
+ga_domain: fangtangwei.github.io
+
+# Sidebar settings
+sidebar: true
+sidebar-about-description: "一名普通高中生，热爱编程与写作正在探索更大的世界"
+sidebar-avatar: https://github.com/fangtangwei.png  # 替换为你的头像URL
+
+# Featured Tags
+featured-tags: true
+featured-condition-size: 0
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+# MathJax rendering for layout:page
+page-mathjax: false
+
+# Friends（可保留或替换为你自己的友链）
+friends:
+  [
+    { title: "无", href: "无"}
+  ]

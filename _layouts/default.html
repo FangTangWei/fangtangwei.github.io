@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    {% include nav.html %}
+    {% include search.html %}
+
+    <!-- Capsule Theme Toggle -->
+    <div class="theme-toggle-wrapper">
+      <button id="theme-toggle" class="theme-toggle" role="switch" aria-checked="false" aria-label="切换亮色或暗色模式" title="切换亮/暗模式">
+        <span class="toggle-icon sun" aria-hidden="true">&#9728;</span>
+        <span class="toggle-icon moon" aria-hidden="true">&#9790;</span>
+        <span class="toggle-thumb" aria-hidden="true">&#9728;</span>
+      </button>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="返回顶部" title="返回顶部">
+      <i class="fa fa-arrow-up"></i>
+    </button>
+
+    {{ content }}
+
+    {% include footer.html %}
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+{% comment %}
+    @param {Boolean} center  - 是否居中对齐
+{% endcomment %}
+
+{% if include.center %}
+<ul class="list-inline text-center">
+{% else %}
+<ul class="list-inline">
+{% endif %}
+
+  <!-- ========== RSS ========== -->
+  {% if site.RSS %}
+  <li>
+    <a href="{{ "/feed.xml" | prepend: site.baseurl }}" aria-label="RSS订阅">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+  <!-- ========== Twitter ========== -->
+  {% if site.twitter_username %}
+  <li>
+    <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener" aria-label="Twitter">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+  <!-- ========== 知乎（自定义“知”字） ========== -->
+  {% if site.zhihu_username %}
+  <li>
+    <a target="_blank" href="https://www.zhihu.com/people/{{ site.zhihu_username }}" aria-label="知乎">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-stack-1x fa-inverse" style="font-family: Arial, sans-serif; font-weight: bold; font-style: normal;">知</i>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+  <!-- ========== 微博 ========== -->
+  {% if site.weibo_username %}
+  <li>
+    <a target="_blank" href="http://weibo.com/{{ site.weibo_username }}" aria-label="微博">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+  <!-- ========== Facebook ========== -->
+  {% if site.facebook_username %}
+  <li>
+    <a target="_blank" href="https://www.facebook.com/{{ site.facebook_username }}" aria-label="Facebook">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+  <!-- ========== GitHub ========== -->
+  {% if site.github_username %}
+  <li>
+    <a target="_blank" href="https://github.com/{{ site.github_username }}" aria-label="GitHub">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+  <!-- ========== LinkedIn ========== -->
+  {% if site.linkedin_username %}
+  <li>
+    <a target="_blank" href="https://www.linkedin.com/in/{{ site.linkedin_username }}" aria-label="LinkedIn">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+  <!-- ========== 邮箱 ========== -->
+  {% if site.email %}
+  <li>
+    <a href="mailto:{{ site.email }}" aria-label="发送邮件">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+  <!-- ========== Bilibili（使用 SVG 小电视，兼容 FA4） ========== -->
+  {% if site.bilibili_uid %}
+  <li>
+    <a target="_blank" href="https://space.bilibili.com/{{ site.bilibili_uid }}" aria-label="Bilibili">
+      <span class="fa-stack fa-lg">
+        <!-- 圆形背景（fa-circle） -->
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <!-- SVG 小电视，白色，居中 -->
+        <svg class="fa-inverse" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+          <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.685.386-.934.258-.249.573-.373.947-.373zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/>
+        </svg>
+      </span>
+    </a>
+  </li>
+  {% endif %}
+
+</ul>

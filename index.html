@@ -1,0 +1,168 @@
+---
+layout: page
+description: "「」"
+---
+
+{% for post in paginator.posts %}
+<div class="post-preview">
+    <a href="{{ post.url | prepend: site.baseurl }}">
+        <h2 class="post-title">
+            {{ post.title }}
+        </h2>
+        {% if post.subtitle %}
+        <h3 class="post-subtitle">
+            {{ post.subtitle }}
+        </h3>
+        {% endif %}
+        <div class="post-content-preview">
+            {% if post.lang == 'en' %}
+                {{ post.content | strip_html | truncate:300 }}
+            {% else %}
+                {{ post.content | strip_html | truncate:200 }}
+            {% endif %}
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
+    </p>
+</div>
+<hr>
+{% endfor %}
+
+<!-- Pager -->
+{% if paginator.total_pages > 1 %}
+<ul class="pager">
+    {% if paginator.previous_page %}
+    <li class="previous">
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+    </li>
+    {% endif %}
+    {% if paginator.next_page %}
+    <li class="next">
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+    </li>
+    {% endif %}
+</ul>
+{% endif %}
+
+<!-- ========== 替换占位符为 API 名言 + 打字机效果 ========== -->
+<script>
+  (function() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', replace);
+    } else {
+      replace();
+    }
+
+    function replace() {
+      var PLACEHOLDER = '「」';
+      var target = null;
+
+      // 1. 查找包含占位符文本的元素（常见描述类）
+      var classes = ['.subheading', '.page-subtitle', '.description', '.header-description', '.post-subtitle'];
+      for (var i = 0; i < classes.length; i++) {
+        var els = document.querySelectorAll(classes[i]);
+        for (var j = 0; j < els.length; j++) {
+          if (els[j].textContent.trim() === PLACEHOLDER) {
+            target = els[j];
+            break;
+          }
+        }
+        if (target) break;
+      }
+
+      // 2. 如果没找到，遍历所有文本节点
+      if (!target) {
+        var walker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function(node) {
+              if (node.textContent.trim() === PLACEHOLDER) {
+                return NodeFilter.FILTER_ACCEPT;
+              }
+              return NodeFilter.FILTER_REJECT;
+            }
+          }
+        );
+        var textNode = walker.nextNode();
+        if (textNode) {
+          var span = document.createElement('span');
+          span.textContent = PLACEHOLDER;
+          textNode.parentNode.replaceChild(span, textNode);
+          target = span;
+        }
+      }
+
+      // 3. 如果还是找不到（极少数情况），在页面顶部追加一个占位
+      if (!target) {
+        var header = document.querySelector('header') || document.querySelector('.page-header') || document.body;
+        var p = document.createElement('p');
+        p.className = 'subheading';
+        p.textContent = PLACEHOLDER;
+        header.appendChild(p);
+        target = p;
+      }
+
+      // 4. 先显示加载中
+      target.textContent = '「加载中...」';
+
+      // 5. 调用 API
+      fetch('https://uapis.cn/api/v1/saying')
+        .then(function(res) {
+          if (!res.ok) throw new Error('API 请求失败');
+          return res.json();
+        })
+        .then(function(data) {
+          var saying = data.text || '今日无名言，愿你一切安好。';
+          typeWriter(target, '「' + saying + '」');
+        })
+        .catch(function(err) {
+          console.warn('获取名言失败，使用备用:', err);
+          typeWriter(target, '「生活不是等待风暴过去，而是学会在雨中跳舞。」');
+        });
+    }
+
+    // 打字机效果
+    function typeWriter(element, text, speed) {
+      speed = speed || 150; // 每个字的间隔(ms)
+      element.textContent = '';
+      var index = 0;
+      var length = text.length;
+      var cursor = document.createElement('span');
+      cursor.textContent = '_';
+      cursor.style.opacity = '1';
+      cursor.style.animation = 'typingCursorBlink 1s step-end infinite';
+      cursor.style.marginLeft = '2px';
+
+      function addCursor() {
+        element.appendChild(cursor);
+      }
+
+      function type() {
+        if (index < length) {
+          element.textContent = text.slice(0, index + 1);
+          index++;
+          addCursor();
+          setTimeout(type, speed);
+        } else {
+          // 打完了，光标再闪几下然后消失
+          setTimeout(function() {
+            cursor.style.display = 'none';
+          }, 2000);
+        }
+      }
+
+      // 添加光标闪烁动画
+      if (!document.getElementById('typing-cursor-style')) {
+        var style = document.createElement('style');
+        style.id = 'typing-cursor-style';
+        style.textContent = '@keyframes typingCursorBlink { 50% { opacity: 0; } }';
+        document.head.appendChild(style);
+      }
+
+      type();
+    }
+  })();
+</script>
+<!-- ========================================= -->

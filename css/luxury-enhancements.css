@@ -1,0 +1,1824 @@
+/* ========================================
+   Luxury Blog Enhancements - Premium Visual Upgrade
+   ======================================== */
+
+/* ========================================
+   CSS Variables - Luxury Color Palette
+   ======================================== */
+:root {
+  --luxury-gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --luxury-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --luxury-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --luxury-gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --luxury-gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --luxury-gold: #d4af37;
+  --luxury-gold-light: #f4e4bc;
+  --luxury-silver: #c0c0c0;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+  --glass-bg: rgba(22, 27, 34, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   Hero Section - Luxury Enhancement
+   ======================================== */
+
+.intro-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.intro-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(102, 126, 234, 0.3) 0%, 
+    rgba(118, 75, 162, 0.3) 50%,
+    rgba(0, 133, 161, 0.3) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.intro-header::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+  animation: heroShimmer 15s ease-in-out infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes heroShimmer {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -2%) rotate(1deg); }
+  66% { transform: translate(-1%, 1%) rotate(-1deg); }
+}
+
+.intro-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero text gradient effect */
+.intro-header .site-heading h1,
+.intro-header .post-heading h1,
+.intro-header .page-heading h1 {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.3));
+  position: relative;
+}
+
+.intro-header .site-heading .subheading,
+.intro-header .post-heading .subheading,
+.intro-header .page-heading .subheading {
+  position: relative;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Animated underline for hero title */
+.intro-header .site-heading h1::after,
+.intro-header .post-heading h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--luxury-gold), transparent);
+  border-radius: 2px;
+  animation: titleLinePulse 3s ease-in-out infinite;
+}
+
+@keyframes titleLinePulse {
+  0%, 100% { width: 60px; opacity: 0.6; }
+  50% { width: 100px; opacity: 1; }
+}
+
+/* Floating particles effect */
+.intro-header .floating-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: floatParticle 8s ease-in-out infinite;
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   Navigation - Luxury Glassmorphism
+   ======================================== */
+
+.navbar-custom.is-fixed {
+  background: var(--glass-bg) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+  backdrop-filter: blur(10px) saturate(150%) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+.navbar-custom .nav li a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+
+
+/* Brand logo enhancement */
+.navbar-custom .navbar-brand {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navbar-custom .navbar-brand::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: linear-gradient(180deg, var(--primary), var(--luxury-gold));
+  border-radius: 2px;
+  transition: height 0.3s ease;
+}
+
+.navbar-custom .navbar-brand:hover::before {
+  height: 60%;
+}
+
+/* ========================================
+   Post Cards - Luxury Premium Design
+   ======================================== */
+
+.postlist-container .post-preview {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Gradient border effect on hover */
+.postlist-container .post-preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold), var(--primary-hover));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.postlist-container .post-preview:hover::after {
+  opacity: 1;
+}
+
+/* Top gradient bar */
+.postlist-container .post-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    var(--primary) 0%, 
+    var(--luxury-gold) 50%, 
+    var(--primary-hover) 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.postlist-container .post-preview:hover::before {
+  transform: scaleX(1);
+}
+
+/* Shimmer sweep effect */
+.postlist-container .post-preview .shimmer-effect {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.postlist-container .post-preview:hover .shimmer-effect {
+  left: 150%;
+}
+
+.postlist-container .post-preview:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12),
+              0 0 0 1px var(--primary);
+}
+
+body.dark-mode .postlist-container .post-preview:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+              0 0 0 1px var(--primary);
+}
+
+/* Post title luxury styling - keep original size */
+.postlist-container .post-preview > a > .post-title {
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.postlist-container .post-preview:hover > a > .post-title {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--luxury-gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateX(6px);
+}
+
+/* Post subtitle - keep original size */
+.postlist-container .post-preview > a > .post-subtitle {
+  color: var(--text-secondary);
+  line-height: 1.3;
+  margin: 0;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+/* Post content preview - keep original size */
+.post-content-preview {
+  line-height: 1.7;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Post meta enhancement - keep original size and style */
+.postlist-container .post-preview > .post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hr);
+  color: var(--muted);
+  font-style: italic;
+  font-family: 'Lora', 'Times New Roman', serif;
+  font-size: 18px;
+}
+
+@media only screen and (max-width: 767px) {
+  .postlist-container .post-preview > .post-meta {
+    font-size: 16px;
+  }
+}
+
+.post-preview > .post-meta::before,
+.postlist-container .post-preview > .post-meta::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold));
+  box-shadow: 0 0 8px var(--primary);
+  animation: luxuryDotPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes luxuryDotPulse {
+  0%, 100% { 
+    box-shadow: 0 0 4px var(--primary);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 12px var(--primary);
+    transform: scale(1.2);
+  }
+}
+
+/* ========================================
+   Sidebar - Luxury Card Design
+   ======================================== */
+
+.sidebar-container .short-about {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-container .short-about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--luxury-gold));
+}
+
+.sidebar-container .short-about:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Avatar with glow ring */
+.sidebar-container .short-about img {
+  width: 100px !important;
+  height: 100px;
+  border-radius: 50% !important;
+  margin: 0 auto 1rem !important;
+  display: block !important;
+  object-fit: cover;
+  border: 3px solid transparent;
+  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+              linear-gradient(135deg, var(--primary), var(--luxury-gold)) border-box;
+  box-shadow: 0 0 20px rgba(0, 133, 161, 0.3);
+  transition: all 0.4s ease;
+}
+
+.sidebar-container .short-about:hover img {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 0 0 30px rgba(0, 133, 161, 0.4);
+}
+
+/* About description */
+.sidebar-container .short-about p {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 1rem !important;
+}
+
+/* Sidebar section titles */
+.sidebar-container h5 {
+  position: relative;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar-container h5::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--luxury-gold));
+  border-radius: 1px;
+}
+
+/* ========================================
+   Social Links - Luxury Hover Effects
+   ======================================== */
+
+.short-about .list-inline {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.short-about .list-inline li {
+  padding: 0 4px !important;
+}
+
+.short-about .list-inline a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.short-about .list-inline a:hover {
+  transform: translateY(-4px) scale(1.1);
+}
+
+.short-about .list-inline a .fa-stack-2x {
+  transition: all 0.3s ease;
+}
+
+.short-about .list-inline a:hover .fa-stack-2x {
+  color: var(--primary) !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 133, 161, 0.4));
+}
+
+.short-about .list-inline a .fa-stack-1x {
+  transition: all 0.3s ease;
+}
+
+/* Footer social icons */
+footer .list-inline a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+footer .list-inline a:hover {
+  transform: translateY(-4px) scale(1.15);
+}
+
+footer .list-inline a .fa-stack-2x {
+  transition: all 0.3s ease;
+}
+
+footer .list-inline a:hover .fa-stack-2x {
+  color: var(--primary) !important;
+  filter: drop-shadow(0 4px 12px rgba(0, 133, 161, 0.5));
+}
+
+/* ========================================
+   Tags - Luxury Pill Design
+   ======================================== */
+
+.tags a,
+.tags .tag {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px !important;
+  font-size: 14px !important;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: hidden;
+}
+
+.tags a::before,
+.tags .tag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.tags a:hover::before,
+.tags .tag:hover::before {
+  left: 100%;
+}
+
+.tags a:hover,
+.tags .tag:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Tag cloud enhancement */
+#tag_cloud a,
+#tag_cloud .tag {
+  position: relative;
+  border-radius: 10px !important;
+  padding: 8px 18px !important;
+  font-size: 15px !important;
+  font-weight: 500;
+  background: var(--tag-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: hidden;
+}
+
+#tag_cloud a::after,
+#tag_cloud .tag::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--luxury-gold));
+  transition: width 0.3s ease;
+}
+
+#tag_cloud a:hover::after,
+#tag_cloud .tag:hover::after {
+  width: 80%;
+}
+
+#tag_cloud a:hover,
+#tag_cloud .tag:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
+}
+
+/* ========================================
+   Footer - Luxury Design
+   ======================================== */
+
+footer {
+  position: relative;
+  margin-top: 3rem;
+  padding: 4rem 0 3rem !important;
+  background: linear-gradient(180deg, transparent 0%, var(--bg-secondary) 100%);
+  border-top: none !important;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--card-border), var(--primary), var(--luxury-gold), var(--primary), var(--card-border), transparent);
+}
+
+footer .list-inline {
+  margin-bottom: 2rem !important;
+}
+
+footer .copyright {
+  color: var(--muted);
+  font-size: 0.85rem !important;
+  line-height: 2;
+}
+
+footer .copyright a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+footer .copyright a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+footer .copyright a:hover::after {
+  width: 100%;
+}
+
+/* ========================================
+   Buttons - Luxury Gradient
+   ======================================== */
+
+.pager li > a {
+  position: relative;
+  background: var(--card-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 12px !important;
+  padding: 12px 24px !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: hidden;
+}
+
+.pager li > a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 133, 161, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.pager li > a:hover::before {
+  left: 100%;
+}
+
+.pager li > a:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 25px rgba(0, 133, 161, 0.25) !important;
+  border-color: var(--primary) !important;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+  color: white !important;
+}
+
+.pager li > a:hover span {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* ========================================
+   Code Blocks - Luxury Theme
+   ======================================== */
+
+.highlighter-rouge .highlight {
+  position: relative;
+  border-radius: 12px !important;
+  overflow: hidden;
+  border: 1px solid var(--card-border) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.highlighter-rouge .highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Code window buttons */
+.highlighter-rouge .highlight::after {
+  content: '● ● ●';
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #ff5f56;
+  text-shadow: 12px 0 #ffbd2e, 24px 0 #27c93f;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.highlighter-rouge .highlight pre {
+  padding-top: 40px !important;
+}
+
+/* ========================================
+   Blockquote - Luxury Style
+   ======================================== */
+
+.post-container blockquote,
+blockquote {
+  position: relative;
+  border-left: 4px solid transparent !important;
+  border-image: linear-gradient(180deg, var(--primary), var(--luxury-gold)) 1 !important;
+  padding: 1.25rem 1.5rem !important;
+  margin: 1.5rem 0 !important;
+  background: var(--primary-light) !important;
+  border-radius: 0 12px 12px 0 !important;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.post-container blockquote::before,
+blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  font-size: 3rem;
+  font-family: Georgia, serif;
+  color: var(--primary);
+  opacity: 0.2;
+  line-height: 1;
+}
+
+/* ========================================
+   Back to Top Button
+   ======================================== */
+
+.back-to-top {
+  position: fixed;
+  bottom: 80px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 133, 161, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 133, 161, 0.5);
+}
+
+.back-to-top:active {
+  transform: translateY(-2px) scale(1.05);
+}
+
+@media (max-width: 767px) {
+  .back-to-top {
+    bottom: 72px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+}
+
+/* ========================================
+   Reading Progress Bar Enhancement
+   ======================================== */
+
+.reading-progress {
+  height: 3px;
+  background: linear-gradient(90deg, 
+    var(--primary) 0%, 
+    var(--luxury-gold) 50%, 
+    var(--primary-hover) 100%);
+  z-index: 1002;
+  box-shadow: 0 0 10px var(--primary),
+              0 0 20px rgba(0, 133, 161, 0.5);
+}
+
+/* ========================================
+   Scrollbar Luxury Style
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--primary), var(--primary-hover));
+  border-radius: 5px;
+  border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--primary-hover), var(--primary));
+}
+
+/* ========================================
+   Selection - Luxury
+   ======================================== */
+
+::selection {
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold)) !important;
+  color: white !important;
+}
+
+::-moz-selection {
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold)) !important;
+  color: white !important;
+}
+
+/* ========================================
+   Post Container Typography Enhancement
+   ======================================== */
+
+.post-container {
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.post-container p {
+  margin: 1.25rem 0;
+  text-align: justify;
+}
+
+/* First letter - no drop cap, keep original size */
+.post-container > p:first-of-type::first-letter {
+  font-size: inherit;
+  font-weight: inherit;
+  float: none;
+  line-height: inherit;
+  margin-right: 0;
+  margin-top: 0;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
+}
+
+/* Headings luxury style */
+.post-container h2 {
+  position: relative;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 3rem !important;
+  padding-bottom: 0.75rem;
+}
+
+.post-container h2::before {
+  display: none !important;
+}
+
+.post-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--luxury-gold));
+  border-radius: 2px;
+}
+
+.post-container h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem !important;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.post-container h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: linear-gradient(180deg, var(--primary), var(--luxury-gold));
+  border-radius: 2px;
+}
+
+/* ========================================
+   Image Enhancement
+   ======================================== */
+
+.post-container img {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.post-container img:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18) !important;
+}
+
+body.dark-mode .post-container img {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================================
+   Table Luxury Style
+   ======================================== */
+
+.post-container table {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.post-container table thead th {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white;
+  font-weight: 600;
+  border: none !important;
+  padding: 12px 16px;
+}
+
+.post-container table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.post-container table tbody tr:hover {
+  background: var(--primary-light);
+}
+
+.post-container table tbody td {
+  padding: 12px 16px;
+  border-color: var(--hr) !important;
+}
+
+/* ========================================
+   Archive Timeline Luxury Upgrade
+   ======================================== */
+
+.archive-timeline::before {
+  background: linear-gradient(180deg, 
+    var(--primary) 0%, 
+    var(--luxury-gold) 50%, 
+    var(--primary-hover) 100%) !important;
+}
+
+.archive-timeline .archive-year {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.archive-timeline .archive-date {
+  font-size: 1.25rem;
+}
+
+.archive-timeline .archive-title {
+  font-size: 1.75rem;
+}
+
+.archive-timeline .archive-subtitle {
+  font-size: 1.25rem;
+}
+
+.archive-timeline .archive-year::before {
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold)) !important;
+  box-shadow: 0 0 0 4px var(--card-bg),
+              0 0 20px rgba(0, 133, 161, 0.5) !important;
+}
+
+.archive-timeline .archive-item::before {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.archive-timeline .archive-item:hover::before {
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold)) !important;
+  box-shadow: 0 0 15px rgba(0, 133, 161, 0.5) !important;
+}
+
+.archive-timeline .archive-item:hover .archive-title {
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 767px) {
+  .archive-timeline .archive-year {
+    font-size: 1.8rem;
+  }
+  .archive-timeline .archive-date {
+    font-size: 1.1rem;
+  }
+  .archive-timeline .archive-title {
+    font-size: 1.4rem;
+  }
+  .archive-timeline .archive-subtitle {
+    font-size: 1.05rem;
+  }
+}
+
+/* ========================================
+   Archive Tag Filter Bar
+   ======================================== */
+
+.archive-tag-bar {
+  padding: 1.5rem 0 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--hr);
+}
+
+.archive-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.tag-filter-btn {
+  display: inline-block;
+  padding: 5px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background: var(--tag-bg);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tag-filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.tag-filter-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white !important;
+  border-color: transparent;
+  box-shadow: 0 2px 12px rgba(0, 133, 161, 0.3);
+}
+
+/* ========================================
+   Archive Year-level Folding
+   ======================================== */
+
+.archive-year-group {
+  margin-bottom: 2rem;
+}
+
+.archive-year-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 2px solid var(--primary);
+  transition: all 0.2s ease;
+}
+
+.archive-year-header:hover {
+  opacity: 0.85;
+}
+
+.archive-year-text {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+.archive-year-count {
+  font-size: 14px;
+  color: var(--text-secondary);
+  background: var(--tag-bg);
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+}
+
+.archive-year-toggle {
+  margin-left: auto;
+  font-size: 18px;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+
+.archive-year-content {
+  overflow: hidden;
+  max-height: 9999px;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.archive-year-content.collapsed {
+  max-height: 0;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   Archive Same-day Folding
+   ======================================== */
+
+.archive-date-group {
+  position: relative;
+}
+
+.archive-date-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px dashed var(--hr);
+  transition: all 0.2s ease;
+}
+
+.archive-date-header:hover {
+  color: var(--primary);
+}
+
+.archive-group-date {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.archive-group-count {
+  font-size: 14px;
+  color: var(--text-secondary);
+  background: var(--tag-bg);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.archive-toggle {
+  margin-left: auto;
+  font-size: 16px;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+
+.archive-date-content {
+  overflow: hidden;
+  max-height: 2000px;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.archive-date-content.collapsed {
+  max-height: 0;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   Archive Mini Tags
+   ======================================== */
+
+.archive-item-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.archive-mini-tag {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--tag-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border);
+}
+
+/* ========================================
+   Archive Empty State
+   ======================================== */
+
+.archive-empty {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.archive-empty p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+body.dark-mode .tag-filter-btn {
+  background: var(--tag-bg);
+  color: var(--text-secondary);
+}
+
+body.dark-mode .archive-tag-bar {
+  background: var(--bg);
+}
+
+body.dark-mode .archive-mini-tag {
+  background: var(--tag-bg);
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   Search Page Luxury
+   ======================================== */
+
+.search-page {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.search-page #search-input {
+  position: relative;
+}
+
+.search-page #search-input::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+/* ========================================
+   Theme Toggle Luxury Upgrade
+   ======================================== */
+
+.theme-toggle {
+  background: linear-gradient(135deg, var(--toggle-track), var(--bg-secondary)) !important;
+  border: 2px solid var(--card-border) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+.theme-toggle .toggle-thumb {
+  background: linear-gradient(135deg, #fff, #f0f0f0) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+body.dark-mode .theme-toggle .toggle-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+}
+
+.theme-toggle::after {
+  box-shadow: 0 0 0 0 var(--luxury-gold) !important;
+  animation: luxuryPulseGlow 3s ease-in-out infinite !important;
+}
+
+@keyframes luxuryPulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+/* ========================================
+   Entrance Animations - Luxury Stagger
+   ======================================== */
+
+@keyframes luxuryFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.postlist-container .post-preview {
+  animation: luxuryFadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.postlist-container .post-preview:nth-child(1) { animation-delay: 0.1s; }
+.postlist-container .post-preview:nth-child(2) { animation-delay: 0.2s; }
+.postlist-container .post-preview:nth-child(3) { animation-delay: 0.3s; }
+.postlist-container .post-preview:nth-child(4) { animation-delay: 0.4s; }
+.postlist-container .post-preview:nth-child(5) { animation-delay: 0.5s; }
+.postlist-container .post-preview:nth-child(6) { animation-delay: 0.6s; }
+.postlist-container .post-preview:nth-child(7) { animation-delay: 0.7s; }
+.postlist-container .post-preview:nth-child(8) { animation-delay: 0.8s; }
+.postlist-container .post-preview:nth-child(9) { animation-delay: 0.9s; }
+.postlist-container .post-preview:nth-child(10) { animation-delay: 1.0s; }
+
+/* Hero text animation */
+.intro-header .site-heading h1,
+.intro-header .post-heading h1 {
+  animation: luxuryFadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;
+}
+
+.intro-header .site-heading .subheading,
+.intro-header .post-heading .subheading {
+  animation: luxuryFadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s backwards;
+}
+
+.intro-header .post-heading .meta {
+  animation: luxuryFadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s backwards;
+}
+
+.intro-header .post-heading .tags {
+  animation: luxuryFadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;
+}
+
+/* ========================================
+   Side Catalog Luxury
+   ======================================== */
+
+.side-catalog .catalog-body li a {
+  position: relative;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.side-catalog .catalog-body li a:hover {
+  padding-left: 14px;
+  color: var(--primary) !important;
+}
+
+.side-catalog .catalog-body .active {
+  background: var(--primary-light) !important;
+  border-radius: 8px !important;
+}
+
+.side-catalog .catalog-body .active a {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
+
+/* ========================================
+   Featured Tags Sidebar
+   ======================================== */
+
+.sidebar-container #tag_cloud {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.sidebar-container #tag_cloud:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.tag-count {
+  font-size: 13px;
+  color: var(--primary);
+  margin-left: 1px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* ========================================
+   Friends Section
+   ======================================== */
+
+.sidebar-container .friends-sidebar {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.sidebar-container .friends-sidebar:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   Reduced Motion Support
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .intro-header::after {
+    animation: none !important;
+  }
+  
+  .postlist-container .post-preview:hover {
+    transform: none !important;
+  }
+  
+  .post-preview > .post-meta::before,
+  .postlist-container .post-preview > .post-meta::before {
+    animation: none !important;
+  }
+}
+
+/* ========================================
+   Mobile Optimizations
+   ======================================== */
+
+@media (max-width: 767px) {
+  .postlist-container .post-preview {
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .postlist-container .post-preview > a > .post-title {
+    font-size: 1.25rem;
+  }
+  
+  .intro-header .site-heading h1,
+  .intro-header .post-heading h1 {
+    font-size: 2rem !important;
+  }
+  
+  footer {
+    padding: 2.5rem 0 2rem !important;
+  }
+}
+
+/* ========================================
+   404 Page Luxury
+   ======================================== */
+
+.page-fullscreen .intro-header .site-heading h1 {
+  font-size: 8rem;
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold), var(--primary-hover));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glitchText 3s ease-in-out infinite;
+}
+
+@keyframes glitchText {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(0, 133, 161, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(0, 133, 161, 0.5));
+  }
+}
+
+/* ========================================
+   Sidebar Cards - Luxury Design
+   ======================================== */
+
+.sidebar-container .sidebar-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-container .sidebar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--luxury-gold));
+}
+
+.sidebar-container .sidebar-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.sidebar-container .sidebar-card hr {
+  display: none;
+}
+
+/* Sidebar tag cloud */
+.sidebar-tag-cloud a,
+.sidebar-tag-cloud .tag {
+  background: var(--tag-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  color: var(--text-secondary) !important;
+  border-radius: 8px !important;
+  padding: 6px 14px !important;
+  font-size: 14px !important;
+  transition: all 0.25s ease !important;
+  margin-bottom: 8px !important;
+}
+
+.sidebar-tag-cloud a:hover,
+.sidebar-tag-cloud .tag:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 133, 161, 0.3) !important;
+}
+
+/* Friends sidebar */
+.friends-sidebar .list-inline {
+  margin: 0;
+}
+
+.friends-sidebar .list-inline li {
+  margin-bottom: 8px;
+}
+
+.friends-sidebar .list-inline a {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--tag-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  color: var(--text-secondary) !important;
+  text-decoration: none;
+}
+
+.friends-sidebar .list-inline a:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white !important;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 133, 161, 0.3);
+}
+
+/* ========================================
+   Short About Sidebar Enhancement
+   ======================================== */
+
+.short-about {
+  text-align: center;
+}
+
+.short-about img {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.short-about:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(0, 133, 161, 0.4),
+              0 0 60px rgba(212, 175, 55, 0.2);
+}
+
+/* ========================================
+   Navbar Brand Luxury
+   ======================================== */
+
+.navbar-custom .navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.navbar-custom.is-fixed .navbar-brand {
+  background: linear-gradient(135deg, var(--primary), var(--luxury-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ========================================
+   Post Navigation (Previous/Next) Luxury
+   ======================================== */
+
+.post-container .pager li > a {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 15px 20px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.post-container .pager li > a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 133, 161, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.post-container .pager li > a:hover::before {
+  left: 100%;
+}
+
+.post-container .pager li > a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 133, 161, 0.25);
+  border-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white;
+}
+
+.post-container .pager li > a:hover span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   Hero Tags Luxury
+   ======================================== */
+
+.intro-header .tags a,
+.intro-header .tags .tag {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.intro-header .tags a:hover,
+.intro-header .tags .tag:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ========================================
+   List Styles Enhancement
+   ======================================== */
+
+.post-container ul li,
+.post-container ol li {
+  position: relative;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-container ul li::marker {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.post-container ol li::marker {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* ========================================
+   Horizontal Rule Luxury
+   ======================================== */
+
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+  margin: 2rem 0;
+}
+
+/* ========================================
+   Archive Page Tags
+   ======================================== */
+
+#tag-heading .tags a,
+#tag-heading .tags .tag {
+  background: var(--tag-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  color: var(--text-secondary) !important;
+  border-radius: 8px !important;
+  padding: 8px 18px !important;
+  font-size: 15px !important;
+  transition: all 0.25s ease !important;
+}
+
+#tag-heading .tags a:hover,
+#tag-heading .tags .tag:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 133, 161, 0.3) !important;
+}
+
+/* ========================================
+   Search Results Luxury
+   ======================================== */
+
+.search-page .post-preview {
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+}
+
+.search-page .post-preview:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+
+.search-page .post-preview hr {
+  display: none;
+}
+
+/* ========================================
+   Snackbar Luxury
+   ======================================== */
+
+.paper-snackbar {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 133, 161, 0.4) !important;
+}
+
+.paper-snackbar .action {
+  background: transparent !important;
+  color: #fff !important;
+  font-weight: 600;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  padding-left: 16px;
+  transition: all 0.25s ease;
+}
+
+.paper-snackbar .action:hover {
+  color: white !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================
+   Dark Mode Sidebar Cards
+   ======================================== */
+
+body.dark-mode .sidebar-container .sidebar-card {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+body.dark-mode .sidebar-tag-cloud a,
+body.dark-mode .sidebar-tag-cloud .tag {
+  background: var(--tag-bg) !important;
+  border-color: var(--card-border) !important;
+  color: var(--text-secondary) !important;
+}
+
+body.dark-mode .sidebar-tag-cloud a:hover,
+body.dark-mode .sidebar-tag-cloud .tag:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+  color: white !important;
+}
+
+body.dark-mode .friends-sidebar .list-inline a {
+  background: var(--tag-bg);
+  border-color: var(--card-border);
+  color: var(--text-secondary) !important;
+}
+
+body.dark-mode .friends-sidebar .list-inline a:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white !important;
+}
+
+/* ========================================
+   Performance: Lazy Render Off-screen Content
+   ======================================== */
+
+.post-container,
+.sidebar-container,
+.post-preview,
+.archive-post {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
