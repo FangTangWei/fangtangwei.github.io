@@ -8,10 +8,6 @@
 
 function handleRegistration(registration){
   console.log('Service Worker Registered. ', registration)
-  /**
-   * ServiceWorkerRegistration.onupdatefound
-   * The service worker registration's installing worker changes.
-   */
   registration.onupdatefound = (e) => {
     const installingWorker = registration.installing;
     installingWorker.onstatechange = (e) => {
@@ -30,37 +26,27 @@ function handleRegistration(registration){
 }
 
 if(navigator.serviceWorker){
-  // For security reasons, a service worker can only control the pages
-  // that are in the same directory level or below it. That's why we put sw.js at ROOT level.
   navigator.serviceWorker
     .register('/sw.js')
     .then((registration) => {
       handleRegistration(registration);
-      // Force update check on every page load
       registration.update();
     })
     .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
 
-  // Auto-refresh when a new SW takes control
-  var refreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (refreshing) return;
-    refreshing = true;
-    window.location.reload();
+    // New SW took control; page will get fresh content on next navigation
   });
 
-  // register message receiver
-  // https://dbwriteups.wordpress.com/2015/11/16/service-workers-part-3-communication-between-sw-and-pages/
   navigator.serviceWorker.onmessage = (e) => {
-    console.log('SW: SW Broadcasting:', event);
     const data = e.data
 
     if(data.command == "UPDATE_FOUND"){
       console.log("UPDATE_FOUND_BY_SW", data);
       createSnackbar({
-        message: "Content updated.",
-        actionText:"refresh",
-        action: function(e){location.reload()}
+        message: "博客内容已更新",
+        actionText: "刷新",
+        action: function(){ location.reload() }
       })
     }
   }

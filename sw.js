@@ -11,8 +11,8 @@
 // A namespace can prevent potential name conflicts and mis-deletion.
 const CACHE_NAMESPACE = 'main-'
 
-const CACHE = CACHE_NAMESPACE + 'precache-then-runtime-v2';
-const STATIC_CACHE = CACHE_NAMESPACE + 'static-v2';
+const CACHE = CACHE_NAMESPACE + 'precache-then-runtime-v3';
+const STATIC_CACHE = CACHE_NAMESPACE + 'static-v3';
 const PRECACHE_LIST = [
   "./",
   "./offline.html",
@@ -36,7 +36,7 @@ const HOSTNAME_WHITELIST = [
   "cdnjs.cloudflare.com",
   "pagead2.googlesyndication.com"
 ]
-const DEPRECATED_CACHES = ['precache-v1', 'runtime', 'main-precache-v1', 'main-runtime', 'main-precache-then-runtime', 'main-static-v1']
+const DEPRECATED_CACHES = ['precache-v1', 'runtime', 'main-precache-v1', 'main-runtime', 'main-precache-then-runtime', 'main-static-v1', 'main-precache-then-runtime-v2', 'main-static-v2']
 
 
 // The Util Function to hack URLs of intercepted requests
@@ -230,7 +230,22 @@ self.addEventListener('fetch', event => {
         fetch(getCacheBustingUrl(event.request), { cache: "no-store" })
           .then(resp => {
             var respCopy = resp.clone();
-            caches.open(CACHE).then(cache => cache.put(event.request, respCopy));
+            caches.open(CACHE).then(cache => {
+              cache.match(event.request).then(function(oldResp) {
+                if (oldResp) {
+                  Promise.all([oldResp.text(), respCopy.clone().text()]).then(function(results) {
+                    if (results[0] !== results[1]) {
+                      self.clients.matchAll().then(function(clients) {
+                        clients.forEach(function(client) {
+                          client.postMessage({ command: "UPDATE_FOUND" });
+                        });
+                      });
+                    }
+                  });
+                }
+                cache.put(event.request, respCopy);
+              });
+            });
             return resp;
           })
           .catch(() => caches.match(event.request).then(resp => resp || caches.match('offline.html')))
