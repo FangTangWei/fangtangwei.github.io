@@ -157,7 +157,7 @@
   padding: 18px 24px;
   bottom: 0px;
   opacity: 0;
-  z-index: 1002;
+  z-index: 10001;
 }
 @media (min-width: 640px) {
   .paper-snackbar {
@@ -2638,7 +2638,7 @@ body.dark-mode .search-page .search-icon-close {
   width: 0%;
   height: 3px;
   background: linear-gradient(90deg, var(--primary), var(--primary-hover));
-  z-index: 1002;
+  z-index: 10001;
   transition: width 0.1s linear;
   box-shadow: 0 0 8px var(--primary);
   pointer-events: none;
