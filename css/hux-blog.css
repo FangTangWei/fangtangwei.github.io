@@ -3024,12 +3024,12 @@ body.dark-mode .highlighter-rouge .highlight {
   min-width: 0;
 }
 
-.wl-head {
+#waline .wl-head {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 2px !important;
 }
 
 .wl-nick {
@@ -3100,23 +3100,16 @@ body.dark-mode .highlighter-rouge .highlight {
 }
 
 .wl-meta {
-  display: flex;
-  gap: 8px;
-  font-size: 14px;
-  color: #aaa;
-  margin-bottom: 6px;
-}
-
-.wl-location {
   display: none !important;
 }
 
-.wl-content {
+#waline .wl-content {
   font-size: 17px;
   line-height: 1.8;
   color: #333;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  margin-top: 0 !important;
 }
 
 .wl-content p {
