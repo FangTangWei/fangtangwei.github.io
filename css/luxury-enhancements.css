@@ -1870,3 +1870,74 @@ body.dark-mode .friends-sidebar .list-inline a:hover {
   content-visibility: auto;
   contain-intrinsic-size: auto 500px;
 }
+
+/* Exclude Waline comment area from content-visibility to prevent rendering issues */
+.comment,
+#waline {
+  content-visibility: visible !important;
+  contain-intrinsic-size: auto !important;
+}
+
+/* ========================================
+   Theme Switch Transition - Smooth Animation
+   ======================================== */
+
+body {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.post-container,
+.about-content-card,
+.postlist-container .post-preview,
+.sidebar-container .sidebar-card,
+.sidebar-container .short-about,
+.sidebar-container .friends-sidebar,
+.navbar-custom,
+footer,
+.wl-card,
+.wl-panel,
+.wl-editor,
+.wl-input,
+.tag-filter-btn,
+.archive-mini-tag {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* ========================================
+   About Page - Card Design & Animations
+   ======================================== */
+
+.about-content-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  animation: luxuryFadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.15s backwards;
+}
+
+.about-content-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--luxury-gold));
+  border-radius: 14px 14px 0 0;
+}
+
+body.dark-mode .about-content-card {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+@media (max-width: 767px) {
+  .about-content-card {
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+  }
+}

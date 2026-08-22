@@ -51,14 +51,7 @@ layout: default
                 </ul>
                 <hr style="visibility: hidden;">
 
-                {% if site.waline.enable %}
-                <!-- Waline 评论框 start -->
-                <div class="comment">
-                    <div id="waline"></div>
-                </div>
-                <!-- Waline 评论框 end -->
-                {% endif %}
-            </div>  
+            </div>
 
     <!-- Side Catalog Container -->
         {% unless page.no-catalog %}
@@ -76,6 +69,18 @@ layout: default
                 </div>
             </div>
         {% endunless %}
+
+    <!-- Waline 评论框 — 独立于 post-container，避免 content-visibility/padding 干扰 -->
+            {% if site.waline.enable %}
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                comment-wrapper" style="content-visibility: visible;">
+                <div class="comment">
+                    <div id="waline"></div>
+                </div>
+            </div>
+            {% endif %}
 
     <!-- Sidebar Container -->
             <div class="
@@ -104,7 +109,7 @@ layout: default
 <script type="module">
     import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
 
-    const walineConfig = {
+    init({
         el: '#waline',
         serverURL: '{{ site.waline.serverURL }}',
         lang: '{{ site.waline.lang }}',
@@ -112,21 +117,32 @@ layout: default
         dark: '{{ site.waline.dark }}',
         path: window.location.pathname,
         emoji: [
-            '//unpkg.com/@waline/emojis@1.2.0/bole',
-            '//unpkg.com/@waline/emojis@1.2.0/weibo'
+            'https://unpkg.com/@waline/emojis@1.4.0/bmoji',
+            'https://unpkg.com/@waline/emojis@1.4.0/qq',
+            'https://unpkg.com/@waline/emojis@1.4.0/bilibili'
         ],
+        reaction: [
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f44d.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f449.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f64f.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f436.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f620.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f636.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f44a.png'
+        ],
+        requiredFields: ['nick', 'mail'],
         locale: {
-            placeholder: '评论... (支持 Markdown)',
+            placeholder: '欢迎评论 (支持 Markdown)',
             reactionTitle: '你认为这篇文章怎么样？',
-            reaction0: '不喜欢',
-            reaction1: '不好看',
-            reaction2: '还行',
-            reaction3: '很好看',
-            reaction4: '太赞了'
+            reaction0: '点赞',
+            reaction1: '戳一戳',
+            reaction2: '拜谢',
+            reaction3: 'Doge',
+            reaction4: '生气',
+            reaction5: '无语',
+            reaction6: '敲打'
         }
-    };
-
-    init(walineConfig);
+    });
 </script>
 <!-- Waline 评论系统 JS 代码 end -->
 {% endif %}

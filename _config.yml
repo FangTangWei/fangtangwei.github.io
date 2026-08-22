@@ -57,7 +57,7 @@ waline:
   lang: "zh-CN"  # 语言: zh-CN / en-US
   pageview: true  # 文章访问量统计
   emoji: ["//unpkg.com/@waline/emojis@1.2.0/bole", "//unpkg.com/@waline/emojis@1.2.0/weibo"]  # 表情包
-  dark: 'html[data-theme="dark"]'  # 暗色模式选择器
+  dark: 'body.dark-mode'  # 暗色模式选择器，匹配博客的暗色模式类名
   locale:
     placeholder: "评论... (支持 Markdown)"
     reactionTitle: "你认为这篇文章怎么样？"

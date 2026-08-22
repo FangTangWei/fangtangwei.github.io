@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "About"
 description: "一去不复返，一生仅此一次的真正告别。"
 header-img: "img/home-bg-art.jpg"
@@ -7,29 +7,59 @@ header-mask: 0.3
 multilingual: true
 ---
 
-{% include multilingual-sel.html %}
+<!-- Page Header -->
+{% include intro-header.html type='page' %}
 
-<!-- Chinese Version -->
-<div class="zh post-container">
-    {% capture about_zh %}{% include about/zh.md %}{% endcapture %}
-    {{ about_zh | markdownify }}
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <!-- Content Container -->
+    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 postlist-container">
+
+      <!-- Multi-Lingual -->
+      {% include multilingual-sel.html %}
+
+      <!-- Chinese Version -->
+      <div class="zh post-container about-content-card">
+          {% capture about_zh %}{% include about/zh.md %}{% endcapture %}
+          {{ about_zh | markdownify }}
+      </div>
+
+      <!-- English Version -->
+      <div class="en post-container about-content-card" style="display:none;">
+          {% capture about_en %}{% include about/en.md %}{% endcapture %}
+          {{ about_en | markdownify }}
+      </div>
+
+      {% if site.waline.enable %}
+      <!-- Waline 评论框 start -->
+      <div class="comment">
+          <div id="waline"></div>
+      </div>
+      <!-- Waline 评论框 end -->
+      {% endif %}
+
+    </div>
+
+    <!-- Sidebar Container -->
+    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container">
+      <!-- Featured Tags -->
+      {% include featured-tags.html %}
+
+      <!-- Short About -->
+      {% include short-about.html %}
+
+      <!-- Friends Blog -->
+      {% include friends.html %}
+
+      <!-- Ads -->
+      {% include ads.html %}
+    </div>
+  </div>
 </div>
-
-<!-- English Version -->
-<div class="en post-container">
-    {% capture about_en %}{% include about/en.md %}{% endcapture %}
-    {{ about_en | markdownify }}
-</div>
-
-
-{% if site.waline.enable %}
-<!-- Waline 评论框 start -->
-<div class="comment">
-    <div id="waline"></div>
-</div>
-<!-- Waline 评论框 end -->
 
 <!-- Waline 评论系统 JS 代码 start -->
+{% if site.waline.enable %}
 <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
 <script type="module">
     import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
@@ -42,33 +72,49 @@ multilingual: true
         dark: '{{ site.waline.dark }}',
         path: window.location.pathname,
         emoji: [
-            '//unpkg.com/@waline/emojis@1.2.0/bole',
-            '//unpkg.com/@waline/emojis@1.2.0/weibo'
+            'https://unpkg.com/@waline/emojis@1.4.0/bmoji',
+            'https://unpkg.com/@waline/emojis@1.4.0/qq',
+            'https://unpkg.com/@waline/emojis@1.4.0/bilibili'
         ],
+        reaction: [
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f44d.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f449.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f64f.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f436.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f620.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f636.png',
+            'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f44a.png'
+        ],
+        requiredFields: ['nick', 'mail'],
         locale: {
-            placeholder: '评论... (支持 Markdown)',
+            placeholder: '欢迎评论 (支持 Markdown)',
             reactionTitle: '你认为这篇文章怎么样？',
-            reaction0: '不喜欢',
-            reaction1: '不好看',
-            reaction2: '还行',
-            reaction3: '很好看',
-            reaction4: '太赞了'
+            reaction0: '点赞',
+            reaction1: '戳一戳',
+            reaction2: '拜谢',
+            reaction3: 'Doge',
+            reaction4: '生气',
+            reaction5: '无语',
+            reaction6: '敲打'
         }
     });
 </script>
-<!-- Waline 评论系统 JS 代码 end -->
 {% endif %}
+<!-- Waline 评论系统 JS 代码 end -->
 
-<!-- ========== 替换描述为 API 名言 + 打字机效果 ========== -->
+<!-- Image lazy loading + Typewriter (deferred) -->
 <script>
-  (function() {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', replaceDescription);
-    } else {
-      replaceDescription();
+(function () {
+  function init() {
+    // 1. Native lazy loading for about images
+    var imgs = document.querySelectorAll('.about-content-card img');
+    for (var i = 0; i < imgs.length; i++) {
+      imgs[i].setAttribute('loading', 'lazy');
+      imgs[i].setAttribute('decoding', 'async');
     }
 
-    function replaceDescription() {
+    // 2. Typewriter — deferred to idle so it never blocks first paint
+    function runTypewriter() {
       var ORIGINAL = '一去不复返，一生仅此一次的真正告别。';
       var target = null;
 
@@ -84,50 +130,27 @@ multilingual: true
         if (target) break;
       }
 
-      if (!target) {
-        var walker = document.createTreeWalker(
-          document.body,
-          NodeFilter.SHOW_TEXT,
-          {
-            acceptNode: function(node) {
-              if (node.textContent.trim() === ORIGINAL) {
-                return NodeFilter.FILTER_ACCEPT;
-              }
-              return NodeFilter.FILTER_REJECT;
-            }
-          }
-        );
-        var textNode = walker.nextNode();
-        if (textNode) {
-          var span = document.createElement('span');
-          span.textContent = ORIGINAL;
-          textNode.parentNode.replaceChild(span, textNode);
-          target = span;
-        }
-      }
-
       if (!target) return;
 
       target.textContent = '加载中...';
 
       fetch('https://uapis.cn/api/v1/saying')
-        .then(function(res) {
+        .then(function (res) {
           if (!res.ok) throw new Error('API 响应异常');
           return res.json();
         })
-        .then(function(data) {
+        .then(function (data) {
           var saying = data.text || '今日无名言，愿你一切安好。';
           typeWriter(target, saying);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.warn('获取名言失败，使用备用:', err);
           typeWriter(target, '生活不是等待风暴过去，而是学会在雨中跳舞。');
         });
     }
 
-    // 打字机效果
     function typeWriter(element, text, speed) {
-      speed = speed || 150; // 每个字的间隔(ms)
+      speed = speed || 150;
       element.textContent = '';
       var index = 0;
       var length = text.length;
@@ -137,9 +160,7 @@ multilingual: true
       cursor.style.animation = 'typingCursorBlink 1s step-end infinite';
       cursor.style.marginLeft = '2px';
 
-      function addCursor() {
-        element.appendChild(cursor);
-      }
+      function addCursor() { element.appendChild(cursor); }
 
       function type() {
         if (index < length) {
@@ -148,9 +169,7 @@ multilingual: true
           addCursor();
           setTimeout(type, speed);
         } else {
-          setTimeout(function() {
-            cursor.style.display = 'none';
-          }, 2000);
+          setTimeout(function () { cursor.style.display = 'none'; }, 2000);
         }
       }
 
@@ -163,6 +182,18 @@ multilingual: true
 
       type();
     }
-  })();
+
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(runTypewriter, { timeout: 3000 });
+    } else {
+      setTimeout(runTypewriter, 800);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
-<!-- ============================================================= -->
