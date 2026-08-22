@@ -22,29 +22,41 @@ multilingual: true
 </div>
 
 
-{% if site.disqus_username %}
-<!-- disqus 评论框 start -->
+{% if site.waline.enable %}
+<!-- Waline 评论框 start -->
 <div class="comment">
-    <div id="disqus_thread" class="disqus-thread">
-
-    </div>
+    <div id="waline"></div>
 </div>
-<!-- disqus 评论框 end -->
+<!-- Waline 评论框 end -->
 
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "{{site.disqus_username}}";
-    var disqus_identifier = "{{site.disqus_username}}/{{page.url}}";
-    var disqus_url = "{{site.url}}{{page.url}}";
+<!-- Waline 评论系统 JS 代码 start -->
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+<script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
 
-    (function () {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
+    init({
+        el: '#waline',
+        serverURL: '{{ site.waline.serverURL }}',
+        lang: '{{ site.waline.lang }}',
+        pageview: {{ site.waline.pageview }},
+        dark: '{{ site.waline.dark }}',
+        path: window.location.pathname,
+        emoji: [
+            '//unpkg.com/@waline/emojis@1.2.0/bole',
+            '//unpkg.com/@waline/emojis@1.2.0/weibo'
+        ],
+        locale: {
+            placeholder: '评论... (支持 Markdown)',
+            reactionTitle: '你认为这篇文章怎么样？',
+            reaction0: '不喜欢',
+            reaction1: '不好看',
+            reaction2: '还行',
+            reaction3: '很好看',
+            reaction4: '太赞了'
+        }
+    });
 </script>
-<!-- disqus 公共JS代码 end -->
+<!-- Waline 评论系统 JS 代码 end -->
 {% endif %}
 
 <!-- ========== 替换描述为 API 名言 + 打字机效果 ========== -->

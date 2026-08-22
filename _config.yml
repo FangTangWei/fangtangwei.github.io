@@ -50,8 +50,25 @@ kramdown:
       line_numbers: true
       start_line: 1
 
-# Disqus settings（若使用Disqus请替换）
-disqus_username: https-fangtangwei-github-io
+# Waline settings (Waline 评论系统配置)
+waline:
+  enable: true
+  serverURL: "https://fangtangwei.ccwu.cc/"  # Waline 服务端地址
+  lang: "zh-CN"  # 语言: zh-CN / en-US
+  pageview: true  # 文章访问量统计
+  emoji: ["//unpkg.com/@waline/emojis@1.2.0/bole", "//unpkg.com/@waline/emojis@1.2.0/weibo"]  # 表情包
+  dark: 'html[data-theme="dark"]'  # 暗色模式选择器
+  locale:
+    placeholder: "评论... (支持 Markdown)"
+    reactionTitle: "你认为这篇文章怎么样？"
+    reaction0: "不喜欢"
+    reaction1: "不好看"
+    reaction2: "还行"
+    reaction3: "很好看"
+    reaction4: "太赞了"
+
+# Disqus settings（已停用，改用 Waline）
+disqus_username: 
 
 # Netease settings
 netease_comment: false

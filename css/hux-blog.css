@@ -2750,3 +2750,200 @@ body.dark-mode .highlighter-rouge .highlight {
   color: white;
   background: var(--selection-bg);
 }
+
+/* ========================================
+   Waline 评论系统样式适配
+   ======================================== */
+
+.comment {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+/* Waline 评论区整体样式 */
+#waline {
+  margin-top: 20px;
+  --waline-theme-color: #0085a1;
+  --waline-active-color: #006a81;
+  --waline-border: 1px solid #e0e0e0;
+  --waline-bg-color: #fff;
+  --waline-color: #333;
+  --waline-font-size: 16px;
+  font-size: 16px;
+}
+
+/* Waline 评论卡片样式适配 */
+.wl-panel,
+.wl-card {
+  border-radius: 6px;
+}
+
+/* Waline 输入框样式 */
+.wl-editor {
+  border-radius: 6px;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+  font-size: 16px;
+  min-height: 120px;
+  border: 1px solid #e0e0e0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wl-editor:focus {
+  border-color: #0085a1;
+  box-shadow: 0 0 0 2px rgba(0, 133, 161, 0.1);
+  outline: none;
+}
+
+.wl-input {
+  border-radius: 4px;
+  font-size: 16px;
+  border: 1px solid #e0e0e0;
+  transition: border-color 0.2s ease;
+}
+
+.wl-input:focus {
+  border-color: #0085a1;
+  outline: none;
+}
+
+/* Waline 按钮样式 */
+.wl-btn {
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.wl-btn.primary {
+  background-color: #0085a1;
+  border-color: #0085a1;
+  color: #fff;
+}
+
+.wl-btn.primary:hover {
+  background-color: #006a81;
+  border-color: #006a81;
+}
+
+/* Waline 评论列表样式 */
+.wl-list .wl-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.wl-list .wl-item:last-child {
+  border-bottom: none;
+}
+
+/* Waline 头像样式 */
+.wl-avatar,
+.wl-card .wl-avatar {
+  border-radius: 50%;
+}
+
+/* Waline 昵称样式 */
+.wl-nick {
+  color: #0085a1;
+  font-weight: 600;
+}
+
+.wl-nick:hover {
+  color: #006a81;
+}
+
+/* Waline 评论内容样式 */
+.wl-content {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.wl-content p {
+  margin-bottom: 0.5em;
+}
+
+/* Waline 评论时间样式 */
+.wl-meta .wl-time {
+  color: #999;
+  font-size: 14px;
+}
+
+/* Waline 回复按钮样式 */
+.wl-reply,
+.wl-card .wl-meta .wl-reply {
+  color: #0085a1;
+}
+
+.wl-reply:hover {
+  color: #006a81;
+}
+
+/* Waline 分页样式 */
+.wl-page {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.wl-page .wl-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  color: #666;
+}
+
+.wl-page .wl-btn:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+/* Waline 评论计数样式 */
+.wl-count {
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Waline 表情包样式 */
+.wl-emoji-popup {
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wl-emoji-item img {
+  border-radius: 4px;
+}
+
+/* Waline 反应(emoji reaction)样式 */
+.wl-reaction {
+  margin-top: 20px;
+}
+
+.wl-reaction-item {
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.wl-reaction-item.active {
+  border-color: #0085a1;
+}
+
+/* Waline 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  #waline {
+    --waline-bg-color: #1a1a1a;
+    --waline-color: #e0e0e0;
+    --waline-border: 1px solid #333;
+  }
+}
+
+/* 响应式适配 */
+@media only screen and (max-width: 767px) {
+  .comment {
+    margin-top: 20px;
+    padding-top: 15px;
+  }
+
+  #waline {
+    margin-top: 15px;
+  }
+}
